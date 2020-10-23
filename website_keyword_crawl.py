@@ -14,7 +14,7 @@ def findkeywordlvl(strwebsiteinp, strmatch, queueget):
     elif strmatch.startswith("href="):
         strmatch = strmatch[6:len(strmatch)]
 
-    if not (strmatch.endswith(".jpg")) or (strmatch.endswith(".png")) or (strmatch.endswith(".bmp")) or (strmatch.endswith(".gif")):
+    if not (strmatch.endswith(".jpg")) or (strmatch.endswith(".png")) or (strmatch.endswith(".bmp")) or (strmatch.endswith(".gif")) or (strmatch.endswith(".js")):
         if strmatch.startswith("//"):
             strwebsite2 = "http:" + strmatch
         elif strmatch.startswith("/"):
@@ -29,7 +29,7 @@ def findkeywordlvl(strwebsiteinp, strmatch, queueget):
                 match3 = re.findall("href=[\'\"]http\://[A-z0-9_\-\./]+|href=[\'\"]\/[A-z0-9_\-\./]+|href=[\'\"]www[A-z0-9_\-\./]+",str(strcontent))
                 match3 = match3 + re.findall("src=[\'\"]http\://[A-z0-9_\-\./]+|src=[\'\"]\/[A-z0-9_\-\./]+|src=[\'\"]www[A-z0-9_\-\./]+",str(strcontent))
                 if match2:
-                    strPrint = strwebsite2 + " has " + str(len(match2)) + " matches with keyword: " + strKeyword + "\n"
+                    strPrint = strwebsite2 + "\n"
                     print(strPrint)
                     strFile.write(strPrint)
                 else:
@@ -45,8 +45,8 @@ def findkeywordlvl(strwebsiteinp, strmatch, queueget):
 strWebsite = input("Enter website (Format http://domain.com):\n")
 strKeyword = input("Enter keyword to search for:\n")
 intLevel = int(input("Select levels to scan. Choose 1, 2 or 3 - 3 might contain errors:\n"))
-filename = strWebsite[7:len(strWebsite)] + " positives.log"
-filename2 = strWebsite[7:len(strWebsite)] + " errors.log"
+filename = "positives.log"
+filename2 = "errors.log"
 strFile = open(filename, 'w')
 strFile2 = open(filename2, 'w')
 
@@ -55,11 +55,9 @@ match2 = re.findall(re.escape(strKeyword), str(strContent))
 match3 = []
 
 if match2:
-    strPrint = strWebsite + " has " + str(len(match2)) + " matches with keyword: " + strKeyword + "\n"
+    strPrint = strWebsite
     print(strPrint)
     strFile.write(strPrint)
-else:
-    print("No matches for:", strWebsite)
 
 if intLevel == 1:
     print("Finished scanning website for keywords")
